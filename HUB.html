@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nile Bites — Project Hub</title>
+<style>
+  :root{--black:#0B0906;--ink:#141110;--cream:#F5EFE0;--gold:#E0A72C;--goldlt:#F2CE72;--terra:#E2703A;--mut:rgba(245,239,224,.6);--line:rgba(245,239,224,.1)}
+  *{box-sizing:border-box}body{margin:0;background:var(--black);color:var(--cream);font:15px/1.6 'Segoe UI',system-ui,sans-serif}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:48px 24px 80px}
+  header{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+  h1{font-family:'Arial Black',Impact,sans-serif;font-size:clamp(34px,6vw,64px);line-height:.9;margin:0;text-transform:uppercase}
+  h1 em{font-style:normal;color:var(--gold)}
+  .sub{color:var(--mut);max-width:60ch}
+  .badges{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 34px}
+  .badge{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+  .badge--ok{border-color:rgba(111,211,168,.5);color:#6FD3A8}
+  .badge--gold{border-color:rgba(224,167,44,.5);color:var(--goldlt)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+  .card{background:var(--ink);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:8px;transition:.35s cubic-bezier(.16,1,.3,1)}
+  .card:hover{transform:translateY(-5px);border-color:rgba(224,167,44,.5)}
+  .card b{font-size:17px;font-weight:800}
+  .card i{font-style:normal;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:800}
+  .card p{margin:0;font-size:13px;color:var(--mut)}
+  .card .go{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--terra);text-transform:uppercase}
+  h2{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:38px 0 14px}
+  pre{background:var(--ink);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:12.5px;overflow-x:auto;color:var(--cream)}
+  footer{margin-top:44px;color:var(--mut);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>NILE <em>BITES</em></h1><span class="sub">project hub · concept → production skeleton · v final</span></header>
+  <p class="sub">Everything of the project in one place. Open in a browser (not in the app preview) for live links.</p>
+  <div class="badges">
+    <span class="badge badge--ok">regress: ALL GREEN</span>
+    <span class="badge badge--gold">brief 1–41: 100%</span>
+    <span class="badge">EN · AR · RU</span>
+    <span class="badge">offline single-file</span>
+    <span class="badge">2026-09-29</span>
+  </div>
+
+  <h2>Live artifacts</h2>
+  <div class="grid">
+    <a class="card" href="index.html"><i>site</i><b>Concept website</b><p>All brief sections, checkout, map, QR, EN/AR/RU, PWA.</p><span class="go">open →</span></a>
+    <a class="card" href="admin.html"><i>ops</i><b>NILE ADMIN</b><p>10 sections, live orders, CSV export. PIN 2026.</p><span class="go">open →</span></a>
+    <a class="card" href="franchise-kit/NileBites-Franchise-Deck.pdf"><i>b2b</i><b>Franchise Deck</b><p>10 slides, unit economics, process. Also inside the site gate.</p><span class="go">open →</span></a>
+    <a class="card" href="franchise-kit/NileBites-LAB-Showcase.pdf"><i>lab book</i><b>LAB Showcase PDF</b><p>22 стр.: 19 демо будущего со скринами, ethics-правила,(prod-зависимости. Для инвесторов.</p><span class="go">open →</span></a>
+    <a class="card" href="production/docs/VOICE-WA-SPEC.md"><i>spec</i><b>VOICE→WA Cloud spec</b><p>Путь voice-демо в прод: вебхуки, ASR ar-EG, диалог, комплаенс, экономика.</p><span class="go">read →</span></a>
+    <a class="card" href="FINAL.md"><i>close</i><b>FINAL.md — сводка</b><p>18 раундов, метрики, принципы, состояние передачи, воспроизводство.</p><span class="go">read →</span></a>
+    <a class="card" href="franchise-kit/NileBites-Pitch-Deck.pdf"><i>pitch</i><b>Pitch Deck 2026</b><p>12 slides: problem → moat → team → ask. For partners & investors.</p><span class="go">open →</span></a>
+    <a class="card" href="franchise-kit/NileBites-Investor-OnePager.pdf"><i>invest</i><b>Investor One-Pager</b><p>1 page: KPI strip, why now, use of funds, the ask. Also in site investor room.</p><span class="go">open →</span></a>
+    <a class="card" href="shots/regress-desktop-en.jpg"><i>qa</i><b>Regress sheet EN</b><p>17 sections + checkout + investor, desktop.</p><span class="go">open →</span></a>
+    <a class="card" href="shots/regress-mobile.jpg"><i>qa</i><b>Regress sheet mobile</b><p>Hero→careers + burger menu, 390px.</p><span class="go">open →</span></a>
+    <a class="card" href="shots/regress-desktop-ar.jpg"><i>qa</i><b>Regress sheet AR</b><p>Full RTL mirror, Cairo 900.</p><span class="go">open →</span></a>
+    <a class="card" href="shots/regress-desktop-ru.jpg"><i>qa</i><b>Regress sheet RU</b><p>Tourist layer.</p><span class="go">open →</span></a>
+  </div>
+
+  <h2>Docs</h2>
+  <div class="grid">
+    <a class="card" href="FUTURE.md"><i>2027+</i><b>FUTURE.md — NILE LAB</b><p>Horizon-map фич из будущего + этические стоп-линии; 8 демо уже кликабельны.</p><span class="go">open →</span></a>
+    <a class="card" href="STRUCTURE.md"><i>map</i><b>STRUCTURE.md — скелет</b><p>Полное дерево проекта с аннотациями: 5 слоёв, production/*, потоки данных, generated vs source.</p><span class="go">open →</span></a>
+    <a class="card" href="DEPLOY.md"><i>deploy</i><b>DEPLOY.md — инструкция</b><p>3 трека: local / docker-dev / prod Vercel+Neon+Sanity; smoke, rollback, траблшутинг.</p><span class="go">open →</span></a>
+    <a class="card" href="HANDOVER.md"><i>handover</i><b>HANDOVER.md — сдача</b><p>Карта артефактов, запуск стека за 10 мин, день 1 команды, роли, ADR, риски, доказательства.</p><span class="go">read →</span></a>
+    <a class="card" href="PROJECT-PASSPORT.md"><i>start here</i><b>PROJECT-PASSPORT.md</b><p>One-file summary: artifacts, numbers, architecture, roadmap, team, brand rules.</p><span class="go">read →</span></a>
+    <a class="card" href="SPEC.md"><i>spec</i><b>SPEC.md</b><p>Design spec / ТЗ: tokens, sections, states, §13.x rounds log.</p><span class="go">read →</span></a>
+    <a class="card" href="NEXT.md"><i>backlog</i><b>NEXT.md</b><p>Research backlog P0–P2 with sources, ✅ marks.</p><span class="go">read →</span></a>
+    <a class="card" href="HOWTO.md"><i>edit</i><b>HOWTO.md</b><p>Recipes: change text/price/photo/city; where what lives.</p><span class="go">read →</span></a>
+    <a class="card" href="brand/BRANDBOOK.md"><i>brand</i><b>BRANDBOOK.md</b><p>Logo, palette shares, type EN/AR/RU, ToV, photo style, DO/DON'T.</p><span class="go">read →</span></a>
+    <a class="card" href="brand/CONTENT-PLAN.md"><i>smm</i><b>CONTENT-PLAN.md</b><p>30 days TikTok/IG + KOL plan + metrics thresholds.</p><span class="go">read →</span></a>
+    <a class="card" href="production/docs/PRODUCTION.md"><i>prod</i><b>PRODUCTION.md</b><p>Runbook: stack, routes, data contract, compliance, 6-week rollout.</p><span class="go">read →</span></a>
+    <a class="card" href="production/README.md"><i>prod</i><b>production/ skeleton</b><p>Next.js 15, Prisma, Sanity, API, CI, e2e smokes.</p><span class="go">read →</span></a>
+    <a class="card" href="tokens/tokens.json"><i>design</i><b>tokens.json / .css</b><p>Exported design tokens for Figma & devs (make tokens).</p><span class="go">open →</span></a>
+  </div>
+
+  <h2>Commands</h2>
+  <pre>make serve      # dev server :8000 + auto-rebuild on src/* save
+make site       # rebuild index.html + admin.html
+make deck       # regenerate franchise deck PDF
+make tokens     # export design tokens
+make shots      # qa screenshots
+make regress    # full regression: 4 modes + sheets + report</pre>
+
+  <footer>© 2026 Nile Bites · design concept & production skeleton · not a live store</footer>
+</div>
+</body>
+</html>

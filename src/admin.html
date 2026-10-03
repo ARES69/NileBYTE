@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nile Admin — concept dashboard</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0906'/%3E%3Cpath d='M12 40c6-8 12 4 18-2s10 6 22-4' stroke='%23E0A72C' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- LOGIN (concept gate) -->
+<div id="login">
+  <form class="login-card" id="loginForm">
+    <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 26c5-7 10 3 16-2s8 5 16-4" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><path d="M4 33c5-5 10 2 16-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/></svg>
+    <h1>Nile Admin</h1>
+    <p>Staff &amp; partner dashboard · concept demo</p>
+    <input id="pin" inputmode="numeric" maxlength="4" placeholder="••••" aria-label="PIN">
+    <p class="err" id="pinErr"></p>
+    <button type="submit">Enter</button>
+    <p class="hint">DEMO PIN: 2026</p>
+  </form>
+</div>
+
+<div class="adm" id="adm" hidden>
+  <!-- SIDEBAR -->
+  <aside class="side" id="side">
+    <div class="side__logo">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 26c5-7 10 3 16-2s8 5 16-4" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>
+      <b>NILE ADMIN</b><i>v0.9</i>
+    </div>
+    <button data-sec="sales" class="is-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-5 3 3 5-7"/></svg>Sales</button>
+    <button data-sec="orders"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h12l2 5v15H4V7z"/><path d="M4 7h16M9 12h6"/></svg>Orders<span class="cnt" id="cntNew">0</span></button>
+    <button data-sec="kds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Kitchen<span class="cnt" id="cntKds">0</span></button>
+    <button data-sec="risk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2.5 20h19z"/><path d="M12 9v5M12 17.5v.5"/></svg>Risk<span class="cnt" id="cntRisk">0</span></button>
+    <button data-sec="products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 5v8l-8 5-8-5V8z"/><path d="M12 13l8-5M12 13L4 8M12 13v8"/></svg>Products</button>
+    <button data-sec="inventory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-6 9 6v12H3z"/><path d="M9 21v-8h6v8"/></svg>Inventory</button>
+    <button data-sec="stores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Stores</button>
+    <button data-sec="customers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17.5" cy="9" r="2.6"/><path d="M15.5 14.7c2.8.2 5 1.8 5.8 4.6"/></svg>Customers</button>
+    <button data-sec="loyalty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 5.9L12 16.4 6.7 19.3l1.2-5.9L3.4 9.3l6-.7z"/></svg>Loyalty</button>
+    <button data-sec="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 16l-1.8-4.8L6 9.4l4.2-1.8z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg>AI</button>
+    <button data-sec="marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l14-6v14L3 13z"/><path d="M17 9a4 4 0 0 1 0 6M7 13v6h3"/></svg>Marketing</button>
+    <button data-sec="analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6.4 6.4"/></svg>Analytics</button>
+    <button data-sec="franchise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V8l8-5 8 5v13"/><path d="M4 21h16M10 21v-6h4v6"/></svg>Franchise</button>
+    <div class="side__foot">
+      <a href="index.html" target="_blank">← View public site</a>
+      <span>Concept demo · data is simulated<br>© 2026 Nile Bites</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="top">
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <h1 id="admTitle">Sales</h1>
+      <select id="range" aria-label="Date range">
+        <option value="today">Today</option>
+        <option value="7d">Last 7 days</option>
+        <option value="30d">Last 30 days</option>
+      </select>
+      <button class="tbtn tbtn--live" id="liveBtn"><span class="dot"></span><span id="liveTxt">LIVE</span></button>
+      <button class="tbtn tbtn--gold" id="exportBtn">Export CSV</button>
+      <button class="tbtn" id="dataExport" title="All nb-* data-layer as JSON">Data JSON</button>
+      <button class="tbtn" id="dataReset" title="Clear demo data-layer">Reset</button>
+      <div class="avatar" title="Store manager">AM</div>
+    </header>
+
+    <div class="content">
+
+      <!-- SALES -->
+      <section class="sec is-on" id="sec-sales">
+        <div class="kpis" id="kpiSales"></div>
+        <div class="row2">
+          <div class="panel"><h3>Orders by hour <span class="tag" id="hourTag">peak 19:00–21:00</span></h3><svg id="chartHours" viewBox="0 0 640 240"></svg></div>
+          <div class="panel"><h3>Sauce mix</h3><svg id="chartSauce" viewBox="0 0 300 240"></svg></div>
+        </div>
+        <div class="row2">
+          <div class="panel"><h3>Revenue by product</h3><svg id="chartProd" viewBox="0 0 640 220"></svg></div>
+          <div class="panel"><h3>Live order feed <span class="tag" id="feedTag">streaming</span></h3><div class="feed" id="liveFeed"></div></div>
+        </div>
+      </section>
+
+      <!-- KDS -->
+      <section class="sec" id="sec-kds">
+        <div class="kpis" id="kpiKds" style="grid-template-columns:repeat(4,1fr)"></div>
+        <div class="kds" id="kdsBoard"></div>
+        <p class="note" style="margin-top:14px">Timers are live. &gt;12 min = SLA breach (auto-flags into Risk). Bump = start cooking, Fire = pass to counter.</p>
+      </section>
+
+      <!-- RISK -->
+      <section class="sec" id="sec-risk">
+        <div class="kpis" id="kpiRisk"></div>
+        <div class="row2">
+          <div class="panel"><h3>Open issues <span class="tag" id="riskTag">needs action</span></h3><div class="feed" id="riskFeed"></div></div>
+          <div class="panel"><h3>Waste by product, % of produced</h3><svg id="chartWaste" viewBox="0 0 640 220"></svg></div>
+        </div>
+        <div class="row2">
+          <div class="panel"><h3>Refunds & compensations</h3>
+            <div style="overflow-x:auto"><table id="refTable"><thead><tr><th>Order</th><th>Sum</th><th>Reason</th><th>Resolution</th></tr></thead><tbody></tbody></table></div>
+          </div>
+          <div class="panel"><h3>Churn risk — no visit 30+ days</h3><div class="inv" id="churnList"></div></div>
+        </div>
+      </section>
+
+      <!-- ORDERS -->
+      <section class="sec" id="sec-orders">
+        <div class="panel">
+          <div class="toolbar" style="margin-bottom:16px">
+            <input type="search" id="ordSearch" placeholder="Search order, channel, item…">
+            <span class="st st--ok" id="siteTag">site: 0</span>
+            <div class="chipset" id="ordFilters">
+              <button data-f="all" class="is-on">All</button><button data-f="new">New</button><button data-f="prep">Preparing</button><button data-f="ready">Ready</button><button data-f="done">Done</button><button data-f="cancel">Cancelled</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto"><table id="ordTable"><thead><tr><th>Order</th><th>Time</th><th>Items</th><th>Channel</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section class="sec" id="sec-products">
+        <div class="panel">
+          <h3>Menu on sale <span class="tag">syncs to site</span></h3>
+          <div style="overflow-x:auto"><table id="prodTable"><thead><tr><th>Product</th><th>Price, EGP</th><th>Sold today</th><th>Revenue</th><th>On sale</th></tr></thead><tbody></tbody></table></div>
+          <p class="note" style="margin-top:14px">Concept: price/availability changes push to the public menu (CMS) instantly.</p>
+        </div>
+      </section>
+
+      <!-- INVENTORY -->
+      <section class="sec" id="sec-inventory">
+        <div class="panel"><h3>Stock levels <span class="tag" id="invTag"></span></h3><div class="inv" id="invList"></div>
+          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap"><button class="mini" id="poBtn">Create purchase order</button><button class="mini" id="countBtn">Schedule stock count</button></div>
+        </div>
+      </section>
+
+      <!-- STORES -->
+      <section class="sec" id="sec-stores">
+        <div class="row3" id="storeCards"></div>
+        <div class="panel" style="margin-top:14px"><h3>Autonomous kiosk fleet <span class="tag">H3 pilot · Marina</span></h3>
+          <div class="row2" id="kioskFleet"></div>
+          <p class="note" style="margin-top:12px">Auto-mode: robot-arm finish + CV QC + self-clean 02:00. Human override always available; incidents page the manager.</p>
+        </div>
+      </section>
+
+      <!-- CUSTOMERS -->
+      <section class="sec" id="sec-customers">
+        <div class="kpis" id="kpiCust" style="grid-template-columns:repeat(4,1fr)"></div>
+        <div class="panel"><h3>Nile Club members <span class="tag">top by points</span></h3>
+          <div style="overflow-x:auto"><table id="custTable"><thead><tr><th>Member</th><th>Tier</th><th>Points</th><th>Visits</th><th>Last visit</th><th></th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </section>
+
+      <!-- LOYALTY -->
+      <section class="sec" id="sec-loyalty">
+        <div class="kpis" id="kpiLoy" style="grid-template-columns:repeat(4,1fr)"></div>
+        <div class="row2">
+          <div class="panel"><h3>Points issued vs redeemed (14d)</h3><svg id="chartLoy" viewBox="0 0 640 220"></svg></div>
+          <div class="panel"><h3>Referral engine</h3><div id="refStats" style="display:grid;gap:12px"></div></div>
+        </div>
+      </section>
+
+      <!-- AI -->
+      <section class="sec" id="sec-ai">
+        <div class="kpis" id="kpiAi" style="grid-template-columns:repeat(4,1fr)"></div>
+        <div class="row2">
+          <div class="panel"><h3>Churn / LTV scoring <span class="tag">model v0.3 · AUC .81</span></h3>
+            <div style="overflow-x:auto"><table id="aiChurn"><thead><tr><th>Member</th><th>Churn risk</th><th>LTV 12m</th><th>Suggested action</th></tr></thead><tbody></tbody></table></div>
+          </div>
+          <div class="panel"><h3>Waste forecast tomorrow + auto-PO</h3><svg id="aiWaste" viewBox="0 0 640 200"></svg>
+            <div id="poList" style="margin-top:12px;display:grid;gap:8px"></div>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="panel"><h3>CV QC — cups at pass window <span class="tag">edge model, no faces</span></h3><div class="feed" id="aiCv"></div></div>
+          <div class="panel"><h3>Digital twin — queue sim next 3 h</h3><svg id="aiTwin" viewBox="0 0 640 200"></svg>
+            <p class="note" id="twinNote" style="margin-top:10px"></p>
+            <h3 style="margin-top:18px">Predictive staffing — next week</h3>
+            <div style="overflow-x:auto"><table id="aiStaff"><thead><tr><th>Day</th><th>Forecast orders</th><th>Crew now</th><th>Crew AI</th><th>Delta</th></tr></thead><tbody></tbody></table></div>
+            <div style="margin-top:10px"><button class="mini" id="rosterBtn">Approve roster (manager signs)</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARKETING -->
+      <section class="sec" id="sec-marketing">
+        <div class="row3" id="campCards"></div>
+        <div class="panel"><h3>QR funnel — cup → CRM <span class="tag">scan the nile</span></h3><svg id="chartFunnel" viewBox="0 0 640 200"></svg></div>
+        <div class="panel"><h3>Generative city creatives <span class="tag">brand-guard on</span></h3>
+          <div class="toolbar" style="margin-bottom:12px">
+            <select class="leadsel" id="crCity"><option>Hurghada</option><option>Cairo</option><option>Sharm El Sheikh</option><option>Alexandria</option></select>
+            <select class="leadsel" id="crHook"><option value="taste">hook: taste</option><option value="price">hook: price</option><option value="culture">hook: culture</option></select>
+            <button class="mini" id="crGen">Generate 3 variants</button>
+          </div>
+          <div id="crOut" style="display:grid;gap:10px"></div>
+        </div>
+      </section>
+
+      <!-- ANALYTICS -->
+      <section class="sec" id="sec-analytics">
+        <div class="kpis" id="kpiAna" style="grid-template-columns:repeat(4,1fr)"></div>
+        <div class="row2">
+          <div class="panel"><h3>Avg check, 30 days</h3><svg id="chartCheck" viewBox="0 0 640 200"></svg></div>
+          <div class="panel"><h3>Channel mix</h3><svg id="chartChan" viewBox="0 0 300 220"></svg></div>
+        </div>
+        <div class="panel"><h3>Weekly retention (cohorts)</h3><div id="cohort" style="overflow-x:auto"></div></div>
+      </section>
+
+      <!-- FRANCHISE -->
+      <section class="sec" id="sec-franchise">
+        <div class="kpis" id="kpiFr" style="grid-template-columns:repeat(4,1fr)"></div>
+        <div class="panel"><h3>Partner leads <span class="tag">from site form</span></h3>
+          <div style="overflow-x:auto"><table id="leadTable"><thead><tr><th>Name</th><th>City</th><th>Budget</th><th>Stage</th><th>Date</th></tr></thead><tbody></tbody></table></div>
+          <p class="note" style="margin-top:14px">Deck downloads: <b class="num" id="deckCount">37</b> · Discovery calls this week: <b class="num">4</b> · SLA: first response &lt; 24 h.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "Nile Bites — Egyptian Street Food. Made to Go.",
+  "short_name": "Nile Bites",
+  "description": "Hot dumplings, bold sauces, one unforgettable bite. Order cups, scan QR, earn Nile Club points.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B0906",
+  "theme_color": "#0B0906",
+  "lang": "en",
+  "categories": ["food", "lifestyle"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
