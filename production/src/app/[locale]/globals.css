@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base stage: black scene, cream text, gold selection — SPEC §2 */
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-black text-cream; }
+  ::selection { @apply bg-gold text-black; }
+  :focus-visible { outline: 2.5px solid theme('colors.gold'); outline-offset: 3px; border-radius: 4px; }
+  [dir='rtl'] body { @apply font-ar; }
+  [dir='rtl'] .font-display { @apply font-ar font-black tracking-normal leading-[1.05]; }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-shell px-5 md:px-10 lg:px-16; }
+  .display { @apply font-display uppercase leading-[0.88] tracking-[-0.01em]; }
+  .eyebrow { @apply text-xs font-extrabold uppercase tracking-[0.24em] text-terra flex items-center gap-2.5 mb-4; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-pill border-2 px-8 py-4 text-sm font-extrabold uppercase tracking-[0.13em] transition-all duration-300; }
+  .btn-gold { @apply btn border-gold bg-gold text-black hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(0,0,0,0.28)]; }
+  .btn-ghost { @apply btn border-cream/40 bg-transparent text-cream hover:bg-cream hover:text-black; }
+  .btn-line-light { @apply btn border-cream/30 bg-transparent text-cream hover:bg-cream hover:text-black; }
+  .chip { @apply rounded-pill border-[1.5px] border-black/25 px-5 py-3 text-xs font-extrabold uppercase tracking-[0.12em] text-black/80 transition-transform hover:-translate-y-0.5; }
+  .chip-on { @apply bg-black text-cream border-black; }
+  .card { @apply rounded-card border border-cream/10 bg-ink; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

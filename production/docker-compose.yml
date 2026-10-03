@@ -1,0 +1,35 @@
+# Nile Bites — local Postgres for dev (team machines & CI-alike).
+# Usage: docker compose up -d && cd .. && bash scripts/w1.sh
+# Data persists in pgdata volume; Adminer for quick looks at :8081.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: nile-pg
+    environment:
+      POSTGRES_USER: nile
+      POSTGRES_PASSWORD: nile
+      POSTGRES_DB: nilebites
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nile -d nilebites"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    command: ["postgres", "-c", "listen_addresses=*", "-c", "max_connections=100"]
+
+  adminer:
+    image: adminer:4
+    container_name: nile-adminer
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+
+volumes:
+  pgdata:

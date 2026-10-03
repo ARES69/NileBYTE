@@ -1,0 +1,218 @@
+// Nile Bites — PostgreSQL schema (Prisma).
+// Covers: orders (site/whatsapp/partners), QR-scan CRM, Nile Club loyalty,
+// referrals, franchise funnel, consents. See SPEC.md §8, §13.8.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderChannel {
+  SITE
+  WHATSAPP
+  TALABAT
+  ELMENUS
+  WALKIN
+}
+
+enum OrderStatus {
+  NEW
+  PREP
+  READY
+  DONE
+  CANCELLED
+}
+
+enum LeadStage {
+  NEW
+  QUALIFIED
+  CALL_BOOKED
+  DECK_SENT
+  DISCOVERY
+  PAUSED
+}
+
+// packaging QR cohort: which print run / store
+enum PackBatch {
+  A
+  B
+  C
+}
+
+model Store {
+  id        String   @id @default(cuid())
+  slug      String   @unique // hurghada | cairo-zamalek | ...
+  city      String
+  cityAr    String
+  address   String
+  addressAr String
+  lat       Float
+  lng       Float
+  phone     String
+  mapsUrl   String
+  live      Boolean  @default(false)
+  hours     Json // { "sun-thu": ["10:00","02:00"], "fri-sat": ["10:00","03:00"] }
+  delivery  Json // { zones: [...], feeEgp: 20, freeOverEgp: 300, etaMin: [45,60] }
+  partners  Json // { talabat: "store-id", elmenus: "store-id" }
+  createdAt DateTime @default(now())
+  orders    Order[]
+  scans     Scan[]
+  staff     Staff[]
+  invites   StoreInvite[]
+}
+
+model Product {
+  id        String   @id @default(cuid())
+  slug      String   @unique // kofta | shawarma | shatta | cheese | shrimp
+  nameEn    String
+  nameAr    String
+  nameRu    String?
+  descEn    String
+  descAr    String
+  priceEgp  Int // base price for 12 bites
+  sizeDelta Json // { "8": -40, "12": 0, "18": 45 }
+  allergens String[] // GL | DA | EG | SH | SE
+  tags      String[] // veg | spicy | sea
+  kcal      Int
+  image     String // sanity asset ref or CDN url
+  onSale    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  publicId    String      @unique // NB-2041
+  storeId     String?
+  store       Store?      @relation(fields: [storeId], references: [id])
+  channel     OrderChannel @default(SITE)
+  status      OrderStatus  @default(NEW)
+  items       Json // [{ product, size, sauce, tops[], qty, unitEgp }]
+  subtotalEgp Int
+  deliveryEgp Int         @default(0)
+  discountEgp Int         @default(0)
+  totalEgp    Int
+  payMethod   String // card | cash | wallet
+  payRef      String? // gateway ref (Paymob/Kashier)
+  name        String?
+  phone       String?
+  promo       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  ledger      PointLedger[]
+
+  @@index([storeId, createdAt])
+  @@index([status])
+}
+
+model Scan { // QR "SCAN THE NILE" — owned CRM channel (SPEC §8, §36 брифа)
+  id        String   @id @default(cuid())
+  storeId   String?
+  store     Store?   @relation(fields: [storeId], references: [id])
+  sku       String // product slug from pack
+  batch     PackBatch @default(A)
+  stars     Int? // 1..5 after rating
+  deviceId  String? // hashed
+  referrer  String? // utm/source
+  repeat    Boolean  @default(false) // deviceId seen before
+  createdAt DateTime @default(now())
+
+  @@index([storeId, createdAt])
+  @@index([sku])
+}
+
+model ClubMember {
+  id        String   @id @default(cuid())
+  publicId  String   @unique // NB-CLUB-1042
+  phone     String   @unique
+  points    Int      @default(0)
+  tier      String   @default("starter") // starter | silver | gold
+  createdAt DateTime @default(now())
+  ledger    PointLedger[]
+  referrals Referral[] @relation("referrer")
+}
+
+model PointLedger {
+  id        Int      @id @default(autoincrement())
+  memberId  String
+  member    ClubMember @relation(fields: [memberId], references: [id])
+  orderId   Int?
+  order     Order?   @relation(fields: [orderId], references: [id])
+  delta     Int // +12 bites, -100 redeem, +50 referral
+  reason    String // purchase | redeem | referral | gift
+  createdAt DateTime @default(now())
+}
+
+model Referral {
+  id          String   @id @default(cuid())
+  referrerId  String
+  referrer    ClubMember @relation("referrer", fields: [referrerId], references: [id])
+  friendPhone String?
+  status      String   @default("sent") // sent | converted | expired
+  createdAt   DateTime @default(now())
+}
+
+model FranchiseLead {
+  id        String    @id @default(cuid())
+  name      String
+  city      String
+  email     String    @unique
+  budget    String
+  message   String?
+  stage     LeadStage @default(NEW)
+  source    String    @default("site-form")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([stage])
+}
+
+model DeckDownload {
+  id        String   @id @default(cuid())
+  email     String
+  leadEmail String? // link to FranchiseLead.email when known
+  createdAt DateTime @default(now())
+}
+
+model Staff {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("kitchen") // admin | manager | kitchen
+  storeId      String? // null = head office (admin)
+  store        Store?   @relation(fields: [storeId], references: [id])
+  createdAt    DateTime @default(now())
+}
+
+model StoreInvite {
+  id        String   @id @default(cuid())
+  code      String   @unique // NB-INV-XXXXXX
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
+  used      Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Outbox { // reliable event bus: KDS stream, admin live feed, jobs consume from here
+  id        Int      @id @default(autoincrement())
+  storeId   String?
+  type      String // order_new | order_status | order_paid | sla_breach | store_live | points_earned
+  payload   Json
+  createdAt DateTime @default(now())
+
+  @@index([storeId, id])
+}
+
+model ConsentLog {
+  id        String   @id @default(cuid())
+  anonId    String // hashed fingerprint
+  necessary Boolean  @default(true)
+  marketing Boolean  @default(false)
+  analytics Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

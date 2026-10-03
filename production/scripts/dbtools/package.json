@@ -1,0 +1,1 @@
+{ "name": "nile-dbtools", "private": true, "type": "module", "dependencies": { "pg": "^8.13.1", "bcryptjs": "^2.4.3" } }
